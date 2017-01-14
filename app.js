@@ -41,10 +41,18 @@ app.get("/blogs", function(req, res){
 app.get("/blogs/new", function(req, res){
   res.render("new");
 });
-//title
-//image
-//body
-//createdß
+
+//CREATE Route
+app.post("/blogs", function(req, res){
+  //create BLOG
+  Blog.create(req.body.blog, function(err, newBlog){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect("/blogs");
+    }
+  });
+});
 
 app.set('port', process.env.PORT || 3000);
 
