@@ -20,10 +20,11 @@ var blogSchema = new mongoose.Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 
 //RESTFUL ROUTES
-
+//Root Route
 app.get("/", function(req, res){
   res.redirect("/blogs");
 });
+
 //Index - GET list of all blogSchema
 app.get("/blogs", function(req, res){
   //add Index functionality
@@ -34,6 +35,11 @@ app.get("/blogs", function(req, res){
       res.render("index", {blogs: blogs});
     }
   });
+});
+
+//NEW Route
+app.get("/blogs/new", function(req, res){
+  res.render("new");
 });
 //title
 //image
