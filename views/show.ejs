@@ -1,9 +1,26 @@
 <% include ./partials/header %>
 
 <div class="ui main text container segment">
-  <div class="ui huge header">New Blog</div>
+  <div class="ui huge header"><%= blog.title %></div>
+  <div class="ui top attached">
+    <div class="item ">
+         <img class="ui centered rounded image" src="<%= blog.image %>">
+         <div class="content right">
+           <span><%= blog.created.toDateString() %></span>
+         </div>
+         <div class="description">
+              <p><%= blog.body %></p>
+         </div>
+    </div>
+  </div>
 
+  <div class="ui inverted">
+    <button class="ui basic violet button">
+      <a href="/blogs">Back</a>
+    </button>
+  </div>
 
+</div>
 
 
 

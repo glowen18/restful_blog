@@ -57,7 +57,7 @@ app.post("/blogs", function(req, res){
 //SHOW Route
 app.get("/blogs/:id", function(req, res){
   //FIND one blog by ID
-  Blog.find(req.body.blog, function(err, foundBlog){
+  Blog.findById(req.params.id, function(err, foundBlog){
     if(err) {
       console.log(err);
     } else {
@@ -65,7 +65,6 @@ app.get("/blogs/:id", function(req, res){
     }
   })
 });
-
 
 
 
