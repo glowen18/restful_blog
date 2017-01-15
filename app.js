@@ -2,6 +2,7 @@ var express = require("express"),
     methodOverride = require("method-override"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    expressSanitizer = require("express-sanitizer"),
     app = express();
 
 //APP CONFIG
@@ -10,6 +11,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.use(expressSanitizer());
 
 //MONGOOSE / MODEL CONFIG
 var blogSchema = new mongoose.Schema({
@@ -47,9 +49,11 @@ app.get("/blogs/new", function(req, res){
 //CREATE Route
 app.post("/blogs", function(req, res){
   //create BLOG
+  //want to santize data coming from  req.body.blog
+  req.body.blog.body = req.sanitize(req.body.blog.body)
   Blog.create(req.body.blog, function(err, newBlog){
     if(err){
-      console.log(err);
+      res.render("new");
     } else {
       res.redirect("/blogs");
     }
@@ -81,6 +85,7 @@ app.get("/blogs/:id/edit", function(req, res){
 
 //UPDATE Route
 app.put("/blogs/:id", function(req, res){
+  req.body.blog.body = req.sanitize(req.body.blog.body)
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){
     if(err){
       res.redirect("/blogs");
