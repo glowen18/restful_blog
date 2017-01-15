@@ -66,6 +66,18 @@ app.get("/blogs/:id", function(req, res){
   })
 });
 
+//EDIT Route
+app.get("/blogs/:id/edit", function(req, res){
+  Blog.findById(req.params.id, function(err, foundBlog){
+    if(err){
+      res.redirect("/blogs");
+    } else {
+      res.render("edit", {blog: foundBlog});
+    }
+  });
+});
+
+
 
 
 app.set('port', process.env.PORT || 3000);
