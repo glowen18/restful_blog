@@ -1,4 +1,5 @@
 var express = require("express"),
+    methodOverride = require("method-override"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     app = express();
@@ -8,6 +9,7 @@ mongoose.connect("mongodb://localhost/restful_blog");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 //MONGOOSE / MODEL CONFIG
 var blogSchema = new mongoose.Schema({
@@ -77,7 +79,10 @@ app.get("/blogs/:id/edit", function(req, res){
   });
 });
 
-
+//UPDATE Route
+app.put("/blogs/:id", function(req, res){
+  res.send("Update Route!");
+});
 
 
 app.set('port', process.env.PORT || 3000);
