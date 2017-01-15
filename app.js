@@ -90,6 +90,17 @@ app.put("/blogs/:id", function(req, res){
   });
 });
 
+//DELETE Route
+app.delete("/blogs/:id", function(req, res){
+  //Destroy blog
+  Blog.findByIdAndRemove(req.params.id, function(err){
+    if(err){
+      res.send("Error - could not delete");
+    } else {
+      res.redirect("/blogs/");
+    }
+  });
+});
 
 app.set('port', process.env.PORT || 3000);
 
